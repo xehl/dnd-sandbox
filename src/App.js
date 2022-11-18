@@ -3,10 +3,14 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import stations from "./stations";
 
 // fake data generator
+// count is passed as argument, offset as optional arg
 const getItems = (count, offset = 0) =>
+  // builds shallow array of length equal to count
+  // Array.from(arrayLike, (element, index) => { /* … */ })
+  //
   Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k + offset}-${new Date().getTime()}`,
-    content: `item ${k + offset}`,
+    id: `item-${k + offset}`,
+    content: stations[k + offset],
   }));
 
 const reorder = (list, startIndex, endIndex) => {
@@ -116,7 +120,7 @@ function App() {
                               justifyContent: "space-around",
                             }}
                           >
-                            {item.content}
+                            {item.content.call_sign}
                           </div>
                         </div>
                       )}
